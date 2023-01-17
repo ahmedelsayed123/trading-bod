@@ -27,7 +27,7 @@ i build this strategy based on some factors done through my research via some li
  1.1 Return maximum bid if there is only one game.
  1.2 if the auction quantity is <=10 this means there is maximum 5 games so our bid will be in range from [(yourCash/numbeOfGames) to yourCash] .
  1.3 if the auction quantity is large then more games will be played so our bid will be in range from [0 to (yourCash/numbeOfGames)].
- ## hint : this technique we do not waste money and try to win depending on the number of games will be played , (yourCash/numbeOfGames) is is avg cash per game.
+ #### hint : this technique we do not waste money and try to win depending on the number of games will be played , (yourCash/numbeOfGames) is is avg cash per game.
 2. if i knew that i already won or lost the game i don't waste my money and save them for maybe other auctions.
 3. if my opponent finished his cash then we don't bid with high MU we can bid with 1.
 4. if opponents bids for the last n number of time with the same bid we can use strategy of bidding his bid+1 .
