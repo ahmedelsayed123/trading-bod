@@ -15,7 +15,7 @@ You can create new instance and forwarding your Strategy
 
  BidderImpl bidder = new BidderImpl(1000, 50, new MyStrategy());
  BidderImpl opponent = new BidderImpl(1000, 50, new AverageStrategy());
-
+```
 
 ### Strategy
 
