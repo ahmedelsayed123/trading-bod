@@ -15,5 +15,6 @@ You can create new instance and forwarding your Strategy
 
 new BidderImpl(new MyStrategy()) // Create Bidder with custom strategy
 
+
 ### Strategy
     
