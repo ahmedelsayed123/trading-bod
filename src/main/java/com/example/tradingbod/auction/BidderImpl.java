@@ -3,7 +3,6 @@ package com.example.tradingbod.auction;
 import com.example.tradingbod.auction.auctionInformation.AuctionInformation;
 import com.example.tradingbod.auction.auctionInformation.AuctionInformationImpl;
 import com.example.tradingbod.strategy.BidStrategy;
-import com.example.tradingbod.strategy.MyStrategy;
 import com.example.tradingbod.model.AuctionTransaction;
 
 /**
@@ -18,22 +17,10 @@ public class BidderImpl implements Bidder, BidderInformation {
     private int opponentCash;
     private int opponentQuantity;
 
-    private AuctionInformation auctionInformation;
+    private final AuctionInformation auctionInformation;
 
-    private BidStrategy bidStrategy;
+    private final BidStrategy bidStrategy;
 
-    public BidderImpl() {
-        this(new AuctionInformationImpl(), new MyStrategy());
-    }
-
-    public BidderImpl(BidStrategy bidStrategy) {
-        this(new AuctionInformationImpl(), bidStrategy);
-    }
-
-    public BidderImpl(AuctionInformation auctionInformation, BidStrategy bidStrategy) {
-        this.auctionInformation = auctionInformation;
-        this.bidStrategy = bidStrategy;
-    }
 
     public BidderImpl(int cash, int auctionQuantity, BidStrategy bidStrategy) {
         this.bidStrategy = bidStrategy;
@@ -67,11 +54,11 @@ public class BidderImpl implements Bidder, BidderInformation {
     }
 
     @Override
-    public void bids(int own, int other) {
+    public void bids(int ownBid, int opponentBid) {
         int bidderQuWon = 0, opponentQuWon = 0;
-        if (own > other) {
+        if (ownBid > opponentBid) {
             bidderQuWon = 2;
-        } else if (own < other) {
+        } else if (ownBid < opponentBid) {
             opponentQuWon = 2;
         } else {
             bidderQuWon = opponentQuWon = 1;
@@ -79,9 +66,9 @@ public class BidderImpl implements Bidder, BidderInformation {
         this.ownQuantity += bidderQuWon;
         this.opponentQuantity += opponentQuWon;
         this.auctionQuantity -= 2;
-        this.cash -= own;
-        this.opponentCash -= other;
-        auctionInformation.addTransaction(new AuctionTransaction(own, other, bidderQuWon, opponentQuWon));
+        this.cash -= ownBid;
+        this.opponentCash -= opponentBid;
+        auctionInformation.addTransaction(new AuctionTransaction(ownBid, opponentBid, bidderQuWon, opponentQuWon));
     }
 
     @Override

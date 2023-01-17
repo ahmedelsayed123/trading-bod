@@ -3,7 +3,7 @@ package com.example.tradingbod.auction;
 import com.example.tradingbod.auction.auctionInformation.AuctionInformation;
 
 /**
- * Represents the bidder Information used in {@link com.example.tradingbod.strategy.BidStrategy } to get access into current state of bidder
+ * Represents the bidder Information used in {@link com.example.tradingbod.strategy.BidStrategy } to access bidder information
  */
 public interface BidderInformation {
 

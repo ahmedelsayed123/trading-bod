@@ -44,29 +44,33 @@ public class MyStrategy implements BidStrategy {
                 .mapToInt(AuctionTransaction::getOpponentQu)
                 .sum();
 
-        /**initial bid is important as you don't know what your opponent is bid  so based on the auction quantity
+        /*initial bid is important as you don't know what your opponent is bid  so based on the auction quantity
          *and your cash you put the bid using this strategy
-         *
          */
         if (lastTransaction == null) {
-            // Return maximum bid if there is only one game
+            /*
+             *Return maximum bid if there is only one game
+             */
             if (bidderInformation.getAuctionQuantity() == 2) {
                 return bidderInformation.getCash();
             }
-            //if the auction quantity is <=10 this means there is maximum 5 games so our bid will be in range from [ (yourCash/numbeOfGames) to  yourCash]
-            // where (yourCash/numbeOfGames) is avg cash per game
-            //this technique we do not to waste money and try to win depending on the number of games will be played
+            /*
+             *  if the auction quantity is <=10 this means there is maximum 5 games so our bid will be in range from [ (yourCash/numbeOfGames) to  yourCash]
+             *  where (yourCash/numbeOfGames) is avg cash per game
+             *  this technique we do not to waste money and try to win depending on the number of games will be played
+             *  else  if the auction quantity is large then more games will be played so our bid will be in range from [0 to  (yourCash/numbeOfGames) ]
+             *  where (yourCash/numbeOfGames) is avg cash per game
+             */
             if (bidderInformation.getAuctionQuantity() <= 10) {
                 return new Random().nextInt(
                         bidderInformation.getCash() - (bidderInformation.getCash() / (bidderInformation.getAuctionQuantity() / 2))) + (
                         bidderInformation.getCash() / (bidderInformation.getAuctionQuantity() / 2));
             } else {
-                //here if the auction quantity is large then more games will be played so our bid will be in range from [0 to  (yourCash/numbeOfGames) ]
-                // where (yourCash/numbeOfGames) is avg cash per game
+
                 return new Random().nextInt(bidderInformation.getCash() / (bidderInformation.getAuctionQuantity() / 2));
             }
         }
-        /** this for saving money as much as i can when i know that i already won the game
+        /* this for saving money as much as i can when i know that i already won the game
          * or
          *this is for saving money if you new that you already last the game start bidding with zeros
          */
@@ -75,14 +79,14 @@ public class MyStrategy implements BidStrategy {
 
             return 0;
         }
-        /**
+        /*
          * if opponent finished his cash then we don't need to bid with high MU
          */
         if (bidderInformation.getOpponentCash() == 0) {
             return 1;
         }
 
-        /**
+        /*
          *If opponent consistently bids the same amount we can bid with their bid+1
          */
         if (bidderInformation.getAuctionInformation()
@@ -92,7 +96,7 @@ public class MyStrategy implements BidStrategy {
 
         }
 
-        /**
+        /*
          *  Check if it is possible to win by placing opponent's cash + 1 (when opponent's cash is too small)
          */
         long minimumTurnsToWin = (bidderInformation.getAuctionQuantity() / 2) - (bidderInformation.getOwnQuantity() / 2);
@@ -100,7 +104,7 @@ public class MyStrategy implements BidStrategy {
             return bidderInformation.getOpponentCash() + 1;
         }
 
-        /**
+        /*
          * try to evict my opponent if the QU is large we can evict him in 20 % of the games by giving random bids
          * in the bound of (0 to avg(cash/game)) so he can waste more money , and we can take advantage
          */
@@ -108,7 +112,7 @@ public class MyStrategy implements BidStrategy {
             return (int) Math.ceil(new Random().nextInt(bidderInformation.getCash() / (bidderInformation.getAuctionQuantity() / 2)) * 0.2);
         }
 
-        /**try predicting next bid for opponent based on the previous bids/game
+        /*try predicting next bid for opponent based on the previous bids/game
          * by adding to the previous winner 1 or 2
          */
         return lastTransaction.getBidderQu() == 0

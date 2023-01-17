@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class BiddingGame {
 
-    private BidderImpl bidder;
-    private BidderImpl opponent;
+    private final BidderImpl bidder;
+    private final BidderImpl opponent;
     private final int auctionQu;
 
     public BiddingGame(BidderImpl bidder, BidderImpl opponent) {
@@ -42,8 +42,6 @@ public class BiddingGame {
         int opponentTotalQuReceived = auctionTransactions.stream()
                 .mapToInt(AuctionTransaction::getOpponentQu)
                 .sum();
-        System.out.println("Auction result that own max QU won is " + bidderTotalQuReceived + "vs opponent " + opponentTotalQuReceived);
-        System.out.println("cash remained for bidder " + bidder.getCash() + "vs cash remained for opponent " + opponent.getCash());
 
         if (bidderTotalQuReceived > opponentTotalQuReceived || (bidderTotalQuReceived == opponentTotalQuReceived
                 && getBidder().getCash() > getOpponent().getCash())) {
