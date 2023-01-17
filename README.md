@@ -13,8 +13,14 @@ Main class that's responsible the bidding and transactions for the auction `Bidd
 You can create new instance and forwarding your Strategy
 ```java
 
-new BidderImpl(new MyStrategy()) // Create Bidder with custom strategy
+ BidderImpl bidder = new BidderImpl(1000, 50, new MyStrategy());
+ BidderImpl opponent = new BidderImpl(1000, 50, new AverageStrategy());
 
 
 ### Strategy
+
+the project contains the strategy that i created and another two strategies that it competes with thim
+
+#### MyStrategy
+ I build this strategy based on some factors done from my research to try to win an auction 
     
