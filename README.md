@@ -22,7 +22,6 @@ You can create new instance and forwarding your Strategy
 the project contains the strategy that i created and another two strategies (averageStrategy,randomStrategy) that it competes with thim
 
 #### MyStrategy
- I build this strategy based on some factors done from my research to try to win an auction .
  1.initial bid is important as you don't know what your opponent's bid  so based on the auction quantity and your cash you put the bid .
    i.Return maximum bid if there is only one game.
    iv.if the auction quantity is <=10 this means there is maximum 5 games so our bid will be in range from [(yourCash/numbeOfGames) to yourCash] .
