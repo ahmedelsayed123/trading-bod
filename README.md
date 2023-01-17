@@ -3,6 +3,10 @@
 1. Clone this repository
     ```commandline
     git clone https://github.com/ahmedelsayed123/trading-bod.git
+    ```
+2. you can find the tests for the strategies in `TradingBodApplicationTests` class you will find MyStrategy vs RandomStrategy and AverageStrategy    
+
+
     
 ### Project Class Diagram
 ![Screenshot (32)](https://user-images.githubusercontent.com/9481273/212879752-ece6bf8c-7f73-47dc-ad8d-1ab717204609.png)
@@ -34,5 +38,13 @@ i build this strategy based on some factors done through my research via some li
 5. try checking while playing that in comparing minimumTurnsToWin with opponents cash(if it is to small) we can bid his cash+1 using condition if my cash >= (opponent's cash+1)*minimumTurnsToWin.
 6. try to evict my opponent if the QU is large we can evict him in 20 % of the games by giving random bids , in the bound of (0 to avg(cash/game)) so he can waste more money , and we can take advantage.
 7. if we didn't go to those condition we will try predicting next bid for opponent based on the previous bids/game by adding to the previous winner 1 or 2.
+
+#### Links and books i used to help me with strategy
+1. https://salasarauction.com/blog/top-bidding-strategies-to-opt-for-during-e-auctions/ 
+2. http://www0.cs.ucl.ac.uk/staff/w.zhang/rtb-papers/bid-drawbridge.pdf
+
+i think there are more accurate techniques we can use in statistics to increase our winning propability like using median and mean formula will try to read about theam in the near time and implement it 
+
+
 
     
