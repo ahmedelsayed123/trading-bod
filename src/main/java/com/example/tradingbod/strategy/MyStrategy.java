@@ -11,19 +11,7 @@ import java.util.Random;
  * random bids in the middle,...etc)
  */
 public class MyStrategy implements BidStrategy {
-    private static final double DEFAULT_BID_COEFFICIENT = 1.2;
     private BidderInformation bidderInformation;
-
-    private final double bidCoefficient;
-
-    public MyStrategy() {
-        this(DEFAULT_BID_COEFFICIENT);
-    }
-
-    public MyStrategy(double bidCoefficient) {
-
-        this.bidCoefficient = bidCoefficient;
-    }
 
     @Override
     public void init(BidderInformation bidderInformation) {
@@ -72,7 +60,7 @@ public class MyStrategy implements BidStrategy {
         }
         /* this for saving money as much as i can when i know that i already won the game
          * or
-         *this is for saving money if you new that you already last the game start bidding with zeros
+         *this is for saving money if you new that you already lost the game start bidding with zeros
          */
         if (numberOfQuantityAchieved > (bidderInformation.getAuctionQuantity() + numberOfQuantityAchievedByOpponent)
                 || numberOfQuantityAchievedByOpponent > (bidderInformation.getAuctionQuantity() + numberOfQuantityAchieved)) {
@@ -120,8 +108,10 @@ public class MyStrategy implements BidStrategy {
                 ? new Random().nextInt(
                 bidderInformation.getCash())
                 : (int) Math.ceil(lastTransaction.getOpponentAmount() + (new Random().nextBoolean() ? 1 : 2))
-                : (int) Math.ceil(lastTransaction.getBidderAmount() * bidCoefficient) > bidderInformation.getCash() ? new Random().nextInt(
-                        bidderInformation.getCash()) : (int) Math.ceil(lastTransaction.getBidderAmount() + (new Random().nextBoolean() ? 1 : 2));
+                : (int) Math.ceil(lastTransaction.getBidderAmount() + (new Random().nextBoolean() ? 1 : 2)) > bidderInformation.getCash()
+                        ? new Random().nextInt(
+                        bidderInformation.getCash())
+                        : (int) Math.ceil(lastTransaction.getBidderAmount() + (new Random().nextBoolean() ? 1 : 2));
 
     }
 
